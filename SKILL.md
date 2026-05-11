@@ -10,6 +10,17 @@ description: |
   components for an agent system, evaluating agent frameworks, or when the user
   says "design an agent", "what components do I need", "agent architecture",
   "build an agent for X", or "recommend agent stack".
+  Do NOT use for implementing or coding specific features — use this only for
+  architecture design and component selection.
+license: MIT
+compatibility: |
+  Works across Kimi CLI, Claude Code, OpenCode, OpenClaw, and any Agent
+  Skills-compatible tool. No external dependencies required.
+metadata:
+  author: agent-architect
+  version: "1.1.0"
+  category: architecture
+  tags: [agent-design, architecture, components, framework-selection]
 ---
 
 # 🏗️ Agent Architect Skill
@@ -43,6 +54,7 @@ mode based on user input:
 
 **Process**:
 1. Ask the user the discovery questions **one at a time** (max 5 questions).
+   Ask in the same language the user is using.
    Wait for each answer before asking the next.
 2. After collecting answers, synthesize and output the recommendation.
 
@@ -135,6 +147,70 @@ Use these rules when mapping scenarios to components:
 - File write operations
 - Untrusted user input processed
 - Public-facing deployment
+
+**When multiple rules apply**: Include ALL matching components. There is no
+single winner — an enterprise coding agent may need Memory + Planning +
+Multi-Agent + Sandbox + Gateway simultaneously.
+
+## Examples
+
+### Example 1: Customer Support Bot
+**User says**: "I want a bot that answers customer questions from our
+knowledge base and escalates to a human when stuck."
+
+**Signals parsed**:
+- Domain: customer support
+- Autonomy: human-in-the-loop (escalation)
+- Duration: multi-turn sessions
+- Scale: single agent
+- Risk: read-only (kb search) + external API (escalation)
+- Channels: likely web/chat
+
+**Output**: Required = LLM + RAG/Vector Memory + Tool Registry (search + escalate)
++ Session Store. Production add = Permission System + Approval Gates + Guardrails
++ Cost Tracking. Architecture = Single ReAct Agent.
+
+### Example 2: Autonomous DevOps Agent
+**User says**: "Build an agent that checks server health every hour, restarts
+services if needed, and sends Slack alerts."
+
+**Signals parsed**:
+- Domain: automation / DevOps
+- Autonomy: fully autonomous (cron-triggered)
+- Duration: persistent / long-running
+- Scale: single agent
+- Risk: high (restarts services, shell commands)
+- Channels: Slack + Cron
+
+**Output**: Required = LLM + Tool Registry (shell + Slack) + Cron Scheduler +
+Sandbox + Permission System + Audit Log. Production add = Heartbeat +
+Event Trigger + Recovery + Cost Tracking. Architecture = Persistent Daemon.
+
+## Troubleshooting
+
+**Problem**: User gives a very vague request like "I want an AI agent."
+**Solution**: Immediately enter Mode 2 (Guided Discovery). Start with Q1 and
+progress through the questionnaire. Do not attempt to output a recommendation
+without at least domain + autonomy + duration information.
+
+**Problem**: User scenario matches multiple agent types (e.g., "coding + research").
+**Solution**: Treat as multi-domain and include Multi-Agent Orchestrator in the
+recommendation. Suggest Manager-Workers pattern with specialized sub-agents.
+
+**Problem**: User asks for implementation help ("write the code for this agent").
+**Solution**: Politely clarify that this skill is for architecture design only.
+Direct them to coding skills or frameworks after the architecture is finalized.
+
+**Problem**: REFERENCE.md is not available.
+**Solution**: Use the Component Quick Reference and Framework Quick Pick tables
+in this SKILL.md. They contain the essential knowledge needed for most
+recommendations.
+
+**Problem**: Recommendation feels too generic.
+**Solution**: Re-examine the user's scenario for missed signals. Check:
+- Is there an implicit risk (e.g., "public-facing" implies sandbox + permissions)?
+- Is there an implicit channel (e.g., "team uses Slack" implies Gateway)?
+- Is duration implied (e.g., "background process" implies persistent)?
 
 ## Component Quick Reference
 

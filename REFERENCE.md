@@ -96,21 +96,22 @@
 
 ### 2.1 按 Agent 类型推荐
 
-| Agent 类型 | 必选项 | 强烈建议 | 可选增强 |
-|-----------|--------|----------|----------|
-| **🤖 聊天助手** | LLM, In-Context Memory, Prompt Assembly | Streaming, System Prompts | Vector Memory, Multi-Agent |
-| **💻 代码 Agent** | LLM, Tool Registry, File Tools, Sandbox | Permission System, Plan Approval, Subagent | Episodic Memory, IDE Integration |
-| **🔍 研究 Agent** | LLM, Web Search Tool, Vector Memory | Planning, Multi-Agent, Session Store | Tool Shortlisting |
-| **🛠️ 自动化 Agent** | LLM, Tool Registry, Cron Scheduler | Event Trigger, Heartbeat, Audit Log | Recovery, Concurrency |
-| **👥 多 Agent 团队** | Multi-Agent Orchestrator, Handoff, Event Bus | Session Isolation, State Machine | Agent Discovery |
-| **🎮 游戏/仿真 Agent** | LLM, Execution Runtime, Fast Loop | Sandbox, State Machine, Memory | Planning |
-| **📊 数据分析 Agent** | LLM, Code Execution, File Tools | Vector Memory, Visualization Tool | Planning, Result Caching |
-| **🏢 企业流程 Agent** | LLM, Tool Registry, Permission System, Audit Log | Approval Gates, Guardrails, Session Store | SSO, RBAC |
+| Agent 类型 | 必选项 | 强烈建议 | 可选增强 | 预估工时 |
+|-----------|--------|----------|----------|----------|
+| **🤖 聊天助手** | LLM, In-Context Memory, Prompt Assembly | Streaming, System Prompts | Vector Memory, Multi-Agent | 2-4h |
+| **💻 代码 Agent** | LLM, Tool Registry, File Tools, Sandbox | Permission System, Plan Approval, Subagent | Episodic Memory, IDE Integration | 1-2d |
+| **🔍 研究 Agent** | LLM, Web Search Tool, Vector Memory | Planning, Multi-Agent, Session Store | Tool Shortlisting | 2-3d |
+| **🛠️ 自动化 Agent** | LLM, Tool Registry, Cron Scheduler | Event Trigger, Heartbeat, Audit Log | Recovery, Concurrency | 2-4d |
+| **👥 多 Agent 团队** | Multi-Agent Orchestrator, Handoff, Event Bus | Session Isolation, State Machine | Agent Discovery | 1-2w |
+| **🎮 游戏/仿真 Agent** | LLM, Execution Runtime, Fast Loop | Sandbox, State Machine, Memory | Planning | 3-5d |
+| **📊 数据分析 Agent** | LLM, Code Execution, File Tools | Vector Memory, Visualization Tool | Planning, Result Caching | 2-3d |
+| **🏢 企业流程 Agent** | LLM, Tool Registry, Permission System, Audit Log | Approval Gates, Guardrails, Session Store | SSO, RBAC | 1-3w |
 
 ### 2.2 按复杂度分级
 
 ```
 Level 1: 最小可用 Agent (MVP)
+  👤 适合: 个人开发者 / 黑客松 / 快速验证
   ✅ LLM Provider
   ✅ Agent Loop
   ✅ 2-3 个基础 Tools
@@ -119,6 +120,7 @@ Level 1: 最小可用 Agent (MVP)
   ~ 200 行代码
 
 Level 2: 可用 Agent (Production-ready)
+  👤 适合: 小团队 / 内部工具 / 个人生产力
   ⬆️ 以上全部 +
   ✅ Tool Registry (10+ tools)
   ✅ Session Persistence
@@ -129,6 +131,7 @@ Level 2: 可用 Agent (Production-ready)
   ~ 2000 行代码
 
 Level 3: 高级 Agent (Enterprise)
+  👤 适合: 企业部门 / 产品化 / 多用户场景
   ⬆️ 以上全部 +
   ✅ Vector Memory / RAG
   ✅ Task Planning & Decomposition
@@ -142,6 +145,7 @@ Level 3: 高级 Agent (Enterprise)
   ~ 10000+ 行代码
 
 Level 4: 平台级 Agent (Platform)
+  👤 适合: 平台公司 / SaaS 产品 / 大规模部署
   ⬆️ 以上全部 +
   ✅ Gateway (HTTP/WebSocket)
   ✅ Multi-Channel

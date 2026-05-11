@@ -166,9 +166,32 @@ knowledge base and escalates to a human when stuck."
 - Risk: read-only (kb search) + external API (escalation)
 - Channels: likely web/chat
 
-**Output**: Required = LLM + RAG/Vector Memory + Tool Registry (search + escalate)
-+ Session Store. Production add = Permission System + Approval Gates + Guardrails
-+ Cost Tracking. Architecture = Single ReAct Agent.
+**Output**:
+```markdown
+## 🎯 Agent 架构推荐
+
+### 场景摘要
+Customer support bot answering KB questions with human escalation.
+
+### 📦 必需组件（MVP 级）
+| Component | Why Required | Implementation |
+|-----------|-------------|----------------|
+| LLM Provider | Core reasoning | GPT-4o / Claude Sonnet |
+| RAG/Vector Memory | KB retrieval | Chroma + embedding model |
+| Tool Registry | Search + escalate APIs | 2 tools: search_kb, escalate |
+| Session Store | Multi-turn context | JSONL per conversation |
+
+### 🔧 强烈建议（Production 级）
+| Component | Why Recommended | Implementation |
+|-----------|----------------|----------------|
+| Permission System | Escalation API side effects | Allowlist escalate target |
+| Approval Gates | Human handoff confirmation | Require confirm before escalate |
+| Guardrails | Safety for customer-facing | Content filter + PII detection |
+| Cost Tracking | Token budget for scale | Usage meter per session |
+
+### 🏛️ 推荐架构模式
+Single ReAct Agent with human-in-the-loop escalation gate.
+```
 
 ### Example 2: Autonomous DevOps Agent
 **User says**: "Build an agent that checks server health every hour, restarts
@@ -211,6 +234,15 @@ recommendations.
 - Is there an implicit risk (e.g., "public-facing" implies sandbox + permissions)?
 - Is there an implicit channel (e.g., "team uses Slack" implies Gateway)?
 - Is duration implied (e.g., "background process" implies persistent)?
+
+## Performance Notes
+
+- Take your time to do this thoroughly. A good architecture recommendation is
+  more valuable than a fast but incomplete one.
+- Quality is more important than speed. Do not skip validation steps or
+  decision rules to save time.
+- When in doubt, ask clarifying questions. A well-understood scenario produces
+  a much better recommendation than a rushed guess.
 
 ## Component Quick Reference
 
